@@ -5,6 +5,26 @@ from blog.models import Category, Comment, Location, Post
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
+    """
+    Админская панель для модели Post.
+
+    Поля, отображаемые в списке:
+    - title: заголовок поста
+    - is_published: статус публикации
+    - category: категория
+    - author: автор
+    - location: местоположение
+    - text: текст поста
+    - pub_date: дата публикации
+    - created_at: дата создания
+
+    Поля, доступные для редактирования в списке:
+    - is_published: можно изменить статус публикации
+    - category: можно изменить категорию
+
+    Поля для поиска: title
+    Фильтры: category, is_published
+    """
     list_display = (
         'title',
         'is_published',
@@ -21,11 +41,24 @@ class PostAdmin(admin.ModelAdmin):
     )
     search_fields = ('title',)
     list_filter = ('category', 'is_published',)
-    list_display_links = ('title',)
+    list_display_links = ('title',)  # Поле, по которому можно перейти к редактированию
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """
+    Админская панель для модели Category.
+
+    Поля, отображаемые в списке:
+    - title: заголовок категории
+    - is_published: статус публикации
+    - slug: идентификатор для URL
+    - description: описание
+    - created_at: дата создания
+
+    Поля, доступные для редактирования в списке:
+    - is_published: можно изменить статус публикации
+    """
     list_display = (
         'title',
         'is_published',
@@ -43,6 +76,17 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
+    """
+    Админская панель для модели Location.
+
+    Поля, отображаемые в списке:
+    - name: название места
+    - is_published: статус публикации
+    - created_at: дата создания
+
+    Поля, доступные для редактирования в списке:
+    - is_published: можно изменить статус публикации
+    """
     list_display = (
         'name',
         'is_published',
@@ -58,6 +102,15 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    """
+    Админская панель для модели Comment.
+
+    Поля, отображаемые в списке:
+    - text: текст комментария
+    - post: пост, к которому относится комментарий
+    - created_at: дата создания
+    - author: автор комментария
+    """
     list_display = (
         'text',
         'post',
@@ -66,4 +119,5 @@ class CommentAdmin(admin.ModelAdmin):
     )
 
 
+# Устанавливает отображение для пустых значений в админке
 admin.site.empty_value_display = 'Не задано'
