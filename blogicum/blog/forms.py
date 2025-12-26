@@ -13,18 +13,24 @@ class CommentForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    """
-    Форма для создания и редактирования постов.
-    """
+
     class Meta:
         model = Post
-        exclude = ('author',)  # Исключаем поле автора из формы (устанавливается автоматически)
+        exclude = ('author',)
         widgets = {
-            # Используем специальный виджет для даты и времени
             'pub_date': forms.DateTimeInput(
-                format='%Y-%m-%dT%H:%M',
-                attrs={'type': 'datetime-local'}  # HTML5 input для выбора даты и времени
+                format='%Y-%m-%dT%H:%M', attrs={'type': 'datetime-local'}
+            ),
+            'is_published': forms.CheckboxInput(
+                attrs={'class': 'form-check-input'}
             )
+        }
+
+        labels = {
+            'is_published': 'Опубликовать пост'
+        }
+        help_texts = {
+            'is_published': 'Снимите галочку, чтобы скрыть публикацию'
         }
 
 
